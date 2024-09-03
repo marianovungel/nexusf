@@ -5,8 +5,11 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { auth, db } from '../../lib/firebase'
 import { doc, setDoc } from "firebase/firestore"; 
 import upload from '../../lib/upload'
+import {api_base_url}  from '../../Helper'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [avatar, setAvatar] = useState({
     file:null,
@@ -22,6 +25,30 @@ export default function Login() {
     }
   }
 
+  const createUser = ({username, email, UID, avatar})=>{
+    fetch(api_base_url + "/singUp", {
+        mode:"cors",
+        method: "POST",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify({
+            username:username,
+            email:email,
+            userId:UID,
+            avatar:avatar
+        }),
+    })
+    .then((res)=> res.json())
+    .then((data)=>{
+        if(data.seccess === false){
+            toast.error(data.message)
+        }else{
+            navigate("/login")
+        }
+    })
+}
+
   const handleRegister = async ( e ) =>{
     e.preventDefault()
     setLoading(true)
@@ -34,6 +61,7 @@ export default function Login() {
       const res = await createUserWithEmailAndPassword(auth, email, password)
 
       const imgUrl = await upload(avatar.file)
+      const UID = res.user.uid
 
 
       await setDoc(doc(db, "users", res.user.uid), {
@@ -45,11 +73,14 @@ export default function Login() {
         grups: [],
       });
 
+
       await setDoc(doc(db, "userchats", res.user.uid), {
         chats: [],
       });
 
       toast.success("Conta criada com Sucesso!")
+      console.log(res.user.uid)
+      createUser({ username, email, UID, imgUrl})
 
     } catch (error) {
       toast.error(error.message)
@@ -74,6 +105,8 @@ export default function Login() {
       setLoading(false)
     }
   }
+
+
   return (
     <div className='container'>
       <div className="login">
