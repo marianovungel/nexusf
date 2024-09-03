@@ -123,9 +123,9 @@ export default function ChatItem() {
           </div>
         </div>
         <div className="icons">
-          <IoCall size={20} color='white' />
-          <FaVideo size={20} color='white' />
-          <FaInfoCircle size={20} color='white' />
+          <IoCall size={20} color='#444' />
+          <FaVideo size={20} color='#444' />
+          <FaInfoCircle size={20} color='#444' />
         </div>
       </div>
       <div className="center scrollNone">

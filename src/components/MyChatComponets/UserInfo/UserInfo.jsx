@@ -15,9 +15,9 @@ export default function UserInfo() {
         <h2>{currentUser?.username}</h2>
       </div>
       <div className="icons">
-        <HiOutlineDotsHorizontal size={16} color='white' className='iconItems' />
-        <FaVideo size={16} color='white' className='iconItems' />
-        <IoCall size={16} color='white' className='iconItems' />
+        <HiOutlineDotsHorizontal size={16} color='#444' className='iconItems' />
+        <FaVideo size={16} color='#444' className='iconItems' />
+        <IoCall size={16} color='#444' className='iconItems' />
       </div>
     </div>
   )
