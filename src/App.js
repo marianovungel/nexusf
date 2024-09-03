@@ -36,13 +36,13 @@ function App() {
         <Notify />
         <Routes> 
           <Route path="/" element={ <WellCome /> } exact />
-          <Route path="/grupo" element={ <Grup /> } exact />
-          <Route path="/feed" element={  <Feed />  } exact />
-          <Route path="/notification" element={ <Notification />  } exact />
-          <Route path="/profile" element={ <Profile />  } exact />
-          <Route path="/novo-artigo" element={ <NovoArtigo />  } exact />
-          <Route path="/documentos" element={ <Editor />  } exact />
-          <Route path="/createDocs/:docsId" element={<CreateDocs />} />
+          <Route path="/grupo" element={  currentUser ? <Grup /> : <Login />  } exact />
+          <Route path="/feed" element={ currentUser ? <Feed /> : <Login />  } exact />
+          <Route path="/notification" element={  currentUser ? <Notification /> : <Login />   } exact />
+          <Route path="/profile" element={  currentUser ? <Profile /> : <Login />  } exact />
+          <Route path="/novo-artigo" element={ currentUser ? <NovoArtigo /> : <Login /> } exact />
+          <Route path="/documentos" element={  currentUser ? <Editor />  : <Login />  } exact />
+          <Route path="/createDocs/:docsId" element={ currentUser ? <CreateDocs />  : <Login /> } />
           <Route path="/chat" element={ currentUser ? <MyChat />  : <Login /> } exact />
           <Route path="/video" element={ currentUser ? <VideoProvider />  : <Login /> } exact />
           <Route path="/login" element={currentUser ? <WellCome />  : <Login />} exact />
