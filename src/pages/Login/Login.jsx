@@ -43,8 +43,8 @@ export default function Login() {
     .then((data)=>{
         if(data.seccess === false){
             toast.error(data.message)
-        }else{
-            navigate("/login")
+          }else{
+          toast.success("Conta Criada Com Sucesso!")
         }
     })
 }
@@ -79,12 +79,10 @@ export default function Login() {
       });
 
       toast.success("Conta criada com Sucesso!")
-      console.log(res.user.uid)
       createUser({ username, email, UID, imgUrl})
 
     } catch (error) {
       toast.error(error.message)
-      console.log(error)
     } finally{
       setLoading(false)
     }
@@ -99,8 +97,10 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       toast.success("Logado com sucesso")
+      navigate("/feed")
     } catch (error) {
       toast.error(error.message)
+      setLoading(false)
     } finally{
       setLoading(false)
     }

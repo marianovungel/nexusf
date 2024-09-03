@@ -6,7 +6,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './lib/firebase';
 import { useUserStore } from './lib/userStore';
 import { useEffect } from 'react';
-import AppVideo from './pages/Video/AppVideo';
 import NoPage from './pages/NoPage';
 import VideoProvider from './pages/Video/VideoProvider';
 
@@ -14,8 +13,8 @@ function App() {
 
 
   const { 
-    currentUser, 
     // isLoading, 
+    currentUser, 
     fetchUserInfo 
   } = useUserStore()
 
