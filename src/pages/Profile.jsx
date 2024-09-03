@@ -4,9 +4,14 @@ import { FaUserEdit } from "react-icons/fa";
 import { SobreProfile, ArtigoList, GrupList } from '../components/index';
 import { FaUsers } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from "../lib/userStore";
+const AvatarULR = "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
+
 
 export default function Profile() {
     const [show, setShow] = useState("sobre")
+    const { currentUser } = useUserStore()
+    console.log(currentUser)
 
     const navigate = useNavigate();
 
@@ -28,10 +33,10 @@ export default function Profile() {
         <div id='fullscreenProfile' className='w-full py-4 shadow-md'>
             <div id='rejectedContainer' className='w-3/4 mx-auto flex flex-row items-center justify-between bg-blend-lighten gap-3 py-2'>
                 <div className='flex flex-row items-center justify-start gap-3 px-3'>
-                    <img className='w-40 h-40 rounded-full' src="./image/NEXUS.png" alt="" />
+                    <img className='w-40 h-40  rounded-full object-cover' src={currentUser?.avatar ? currentUser?.avatar : AvatarULR } alt="" />
                     <div className='flex flex-col items-start justify-center gap-1'>
-                        <b className='font-medium text-3xl'>Nexus Artigo</b>
-                        <p>FullStack.JS Desenvolvedor Web & Mobile</p>
+                        <b className='font-medium text-3xl'>{currentUser?.username}</b>
+                        <p>{currentUser?.email}</p>
                         <small>Desde: <i>01/2024</i></small>
                     </div>
                 </div>

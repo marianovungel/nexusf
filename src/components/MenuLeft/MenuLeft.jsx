@@ -36,7 +36,7 @@ export default function MenuLeft() {
 
         <div id="main">
             <button className="openbtn flex items-center justify-center" onClick={openNav} id='nexusId' >
-                <img src="./image/nexustext.png" alt="NEXUS LOGO" className="cursor-pointer h-16 w-16 rounded-full" />
+                <img src="./image/logocortada.png " alt="" className=' cursor-pointer w-24 object-cover' />
             </button>
         </div>
     </div>
