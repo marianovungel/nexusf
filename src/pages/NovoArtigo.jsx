@@ -1,4 +1,5 @@
 import React from 'react'
+const AvatarULR = "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
 
 export default function NovoArtigo() {
   return (
@@ -8,7 +9,7 @@ export default function NovoArtigo() {
         <input type="text" placeholder='Tema' className='p-2 outline-none shadow-md rounded-md w-3/4 text-[#666]' />
       </div>
       <textarea name=""  maxLength={500} className='w-full h-52 max-h-52 p-2 outline-none shadow-md rounded-md text-[#666]' placeholder='Breve Resumo...'></textarea>
-      <div className='w-full flex flex-col items-center justify-start gap-3'>
+      {/* <div className='w-full flex flex-col items-center justify-start gap-3'>
         <p className='w-full text-start flex justify-start items-start'>Escolha o Tamplaite</p>
         <div className='w-full flex flex-row justify-start items-center gap-3 overflow-x-scroll'>
           <div className='w-44 min-w-44 h-36 bottom-0 shadow-md my-2 rounded-md relative cursor-pointer'>Template 1</div>
@@ -18,28 +19,25 @@ export default function NovoArtigo() {
           <div className='w-44 min-w-44 h-36 bottom-0 shadow-md my-2 rounded-md relative cursor-pointer'>Template 3</div>
           <div className='w-44 min-w-44 h-36 bottom-0 shadow-md my-2 rounded-md relative cursor-pointer'>Template 4</div>
         </div>
-      </div>
+      </div> */}
       <div className='w-full flex flex-col items-center justify-start gap-3 my-3'>
         <div className='w-full flex flex-row justify-between items-center gap-3'>
           <input type="text" placeholder='Nome do colaborador' className='p-2 outline-none shadow-md rounded-md w-3/4 text-[#666]' />
           <button className='px-3 py-2 bg-[#23272F] text-white rounded-md bottom-0 shadow-md cursor-pointer'>Pesquisar</button>
         </div>
 
-        <div className='w-full flex flex-row justify-between items-center gap-3 my-2'>
+        <div className='w-full flex flex-row justify-between items-center gap-3 my-2 border-1 shadow-md rounded-lg py-3'>
           <div className='w-3/4 flex flex-row justify-start items-center gap-2'>
-            <img src="" alt="" className='w-10 h10 rounded-full border-none shadow-md' />
-            <p>Mariano António</p>
+            <img src={AvatarULR} alt="" className='w-10 h10 rounded-full border-none shadow-md' />
+            <p className='w-full '>Mariano António</p>
           </div>
-          <button className='px-3 py-2 bg-[#23272F] text-white rounded-md bottom-0 shadow-md cursor-pointer'>Adicionar</button>
+          <button className='px-3 py-2 bg-[#23272F] text-white  bottom-0 shadow-md cursor-pointer'>Adicionar</button>
         </div>
         
       </div>
-      <div className='w-full flex flex-row items-center justify-between gap-3'>
-        <p>Visibilidade</p>
-        <div className='w-3/5 flex flex-row justify-end items-center gap-3'>
-          <button className='px-3 py-2 bg-white text-[#23272F] rounded-md bottom-1 border-slate-700 shadow-md cursor-pointer'>Privado</button>
-          <button className='px-3 py-2 bg-[#23272F] text-bold text-white rounded-md bottom-0 shadow-md cursor-pointer'>Público</button>
-        </div>
+      <div className='w-full flex flex-row items-center justify-start gap-3'>
+        <p>Público</p>
+        <input className="" type="checkbox" name="" id=""  />
       </div>
 
       <div className='w-full flex justify-start items-center py-4'>

@@ -64,3 +64,25 @@ code {
   background-color: rgba(17, 25, 40, 0.9);
   color: #999;
 }
+
+
+
+
+
+
+input[type="checkbox"] {
+  /* Ajuste o tamanho do checkbox */
+  width: 20px;
+  height: 20px;
+}
+
+input[type="checkbox"]:checked {
+  /* Estilos para quando o checkbox estiver marcado */
+  background-color: #4caf50;
+  border: 2px solid #4caf50;
+}
+
+input[type="checkbox"]:hover {
+  /* Estilos para o hover */
+  border-color: #333;
+}
