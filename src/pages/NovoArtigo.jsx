@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { api_base_url } from '../Helper'
 import { useUserStore } from '../lib/userStore'
 import { toast } from 'react-toastify'
@@ -13,7 +13,6 @@ export default function NovoArtigo() {
   const [colabs, setColabs] = useState([])
   const [colab, setColab] = useState([])
   const [publicc, setPublicc] = useState(true)
-  const [createModelShow, setCreateModelShow] = useState(false)
 
   const { currentUser, superUser } = useUserStore()
 
@@ -45,7 +44,6 @@ export default function NovoArtigo() {
         .then((res)=> res.json())
           .then((data)=>{
               if(data.success){
-                setCreateModelShow(false)
                 navigate(`/createDocs/${data.docId}`)
               }else{
                   toast.error("Erro ao criar o Documento")

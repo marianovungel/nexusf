@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 export default function Login() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
-  const [url, seturl] = useState("")
   const [avatar, setAvatar] = useState({
     file:null,
     url:""
@@ -67,7 +66,7 @@ export default function Login() {
         if(data.seccess === false){
             toast.error(data.message)
           }else{
-          toast.success("Conta Criada Com Sucesso!")
+          toast.success("..")
         }
     })
 
@@ -76,7 +75,6 @@ export default function Login() {
       await setDoc(doc(db, "userchats", res.user.uid), {
         chats: [],
       });
-      seturl(imgUrl)
       toast.success("Conta criada com Sucesso!")
 
     } catch (error) {
