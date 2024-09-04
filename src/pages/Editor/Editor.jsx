@@ -4,6 +4,7 @@ import { Docs } from '../../components/index';
 import { MdOutlineTitle } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { api_base_url } from '../../Helper';
+import { toast } from 'react-toastify';
 
 
 export default function Editor() {
@@ -13,7 +14,6 @@ export default function Editor() {
   const [error, setError] = useState("")
   const [data, setData] = useState([])
   
-  console.log(error)
   const createDoc = async ()=>{
     if(title === ""){
       setError("Digite o título")
@@ -36,6 +36,7 @@ export default function Editor() {
               navigate(`/createDocs/${data.docId}`)
             }else{
                 setError(data.message)
+                toast.error(error)
             }
         })
     }
