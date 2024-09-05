@@ -5,6 +5,7 @@ import { MdOutlineTitle } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { api_base_url } from '../../Helper';
 import { toast } from 'react-toastify';
+import { useUserStore } from '../../lib/userStore';
 
 
 export default function Editor() {
@@ -13,6 +14,8 @@ export default function Editor() {
   const [title, setTitle] = useState("")
   const [error, setError] = useState("")
   const [data, setData] = useState([])
+  const { currentUser } = useUserStore()
+  // console.log(currentUser)
   
   const createDoc = async ()=>{
     if(title === ""){
@@ -26,7 +29,7 @@ export default function Editor() {
         },
         body: JSON.stringify({
           docName:title,
-          userId: localStorage.getItem("userId"),
+          userId: currentUser.id,
         }),
       })
       .then((res)=> res.json())
@@ -51,7 +54,7 @@ export default function Editor() {
         "Content-Type":"application/json",
       },
       body: JSON.stringify({
-        userId: localStorage.getItem("userId"),
+        userId: currentUser.id,
       }),
     })
     .then((res)=> res.json())
