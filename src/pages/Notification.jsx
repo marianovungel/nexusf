@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { Acepts, Rejected, Solicitation } from '../components/index';
+import { api_base_url } from '../Helper';
+import { useUserStore } from '../lib/userStore';
 
 export default function Notification() {
   const [show, setShow] = useState(false)
+  const [datas, setDatas] = useState([])
+  const { currentUser, superUser } = useUserStore()
+
   const setGerenciar = ()=>{
     if(!show){
       setShow(true)
@@ -12,6 +17,30 @@ export default function Notification() {
       setShow(false)
     }
   }
+
+  const getData = async ()=>{
+    await fetch(api_base_url + "/noticicadas", {
+      mode:"cors",
+      method: "POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+        userId: currentUser.id,
+      }),
+    })
+    .then((res)=> res.json())
+      .then((data)=>{
+          setDatas(data.notification)
+          console.log(data.notification)
+      })
+    }
+
+    useEffect(()=>{
+      getData()
+    }, [])
+
+
   return (
     <div className='w-10/12 relative mx-auto mt-3 flex flex-row justify-center gap-10 items-start'>
       <section className='w-1/4 flex flex-col justify-center items-center border-2 border-[#f5f5f5]  rounded-lg'>
@@ -40,16 +69,15 @@ export default function Notification() {
           <button className='text-[#23272F] hover:bg-cyan-50 font-medium text-sm bg-[#fff] py-2 px-3 rounded-3xl border-[#666] border-1'>Solicitação recusada</button>
           <button className='text-[#23272F] hover:bg-cyan-50 font-medium text-sm bg-[#fff] py-2 px-3 rounded-3xl border-[#666] border-1'>Solicitação enviadas</button>
         </header>
-        <div className='w-full flex flex-col items-center justify-start border-2 rounded-t-xl border-[#f5f5f5]'>
-          <Acepts />
-          <Rejected />
-          <Rejected />
-          <Solicitation />
-          <Solicitation />
-          <Acepts />
-          <Rejected />
-          <Solicitation />
-        </div>
+        {datas ? datas.map((data)=>(
+          <div key={data?._id} className='w-full flex flex-col items-center justify-start border-2 rounded-t-xl border-[#f5f5f5]'>
+            {data?.type === 1 && <Rejected data={data} />}
+            {data?.type === 2 && <Acepts data={data} />}
+            {data?.type === 3 && <Solicitation data={data} />}
+          </div>
+
+        )): "Sem Notificações..."
+        }
       </section>
     </div>
   )

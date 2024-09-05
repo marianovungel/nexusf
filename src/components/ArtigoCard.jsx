@@ -59,7 +59,7 @@ export default function ArtigoCard() {
             link: docId, 
             ArtigoName: title,
             usernotify: currentUser.id, 
-            text: `${superUser.name} Solicitou Para Ser Colaborador No Seu Artigo <b>${title}<b>`, 
+            text: `${superUser.name} Solicitou Para Ser Colaborador No Seu Artigo ${title}`, 
           }),
         })
         .then((res)=> res.json())
@@ -81,8 +81,6 @@ export default function ArtigoCard() {
         useEffect(()=>{
             getData()
           }, [fatchData])
-
-          console.log(fatchData)
 
   return (
     <>
