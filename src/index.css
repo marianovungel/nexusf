@@ -86,3 +86,7 @@ input[type="checkbox"]:hover {
   /* Estilos para o hover */
   border-color: #333;
 }
+
+.cardsScroll{
+  /* background-color: #4caf50; */
+}

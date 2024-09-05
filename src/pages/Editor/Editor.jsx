@@ -13,9 +13,10 @@ export default function Editor() {
   const [createModelShow, setCreateModelShow] = useState(false)
   const [title, setTitle] = useState("")
   const [error, setError] = useState("")
-  const [data, setData] = useState([])
+  const [datas, setDatas] = useState([])
+  const [allData, setAllData] = useState([])
   const { currentUser } = useUserStore()
-  // console.log(currentUser)
+  console.log(allData)
   
   const createDoc = async ()=>{
     if(title === ""){
@@ -46,8 +47,9 @@ export default function Editor() {
   }
 
   
+  
   const getData = async ()=>{
-    fetch(api_base_url + "/getAllDocs", {
+    await fetch(api_base_url + "/getAllDocs", {
       mode:"cors",
       method: "POST",
       headers:{
@@ -59,27 +61,53 @@ export default function Editor() {
     })
     .then((res)=> res.json())
       .then((data)=>{
-          setData(data.docs)
+          setDatas(data.docs)
       })
     }
+
+  const getDocCol = async ()=>{
+    await fetch(api_base_url + "/alldocs", {
+      mode:"cors",
+      method: "POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+        userId: currentUser.id,
+      }),
+    })
+    .then((res)=> res.json())
+      .then((data)=>{
+        console.log(data.docs)
+        setAllData(data.docs)
+      })
+    }
+
 useEffect(()=>{
   getData()
+  getDocCol()
 }, [])
 
   return (
     <>
       <div className="flex items-center justify-between px-[100px]">
         <h3 className="mt-7 mb-3 text-3xl">All Documents</h3>
-        <button className="btnBlue" onClick={()=>{
-          setCreateModelShow(true);
-          document.getElementById('title').focus()
-          
-          }}><i><MdNoteAdd /></i> Create New Document</button>
+          <button className="btnBlue" onClick={()=>navigate("/novo-artigo")}>
+            <i><MdNoteAdd /></i> 
+            Create New Document
+          </button>
+          {/* <button className="btnBlue" onClick={()=>{
+            setCreateModelShow(true);
+            document.getElementById('title').focus()
+            }}>
+            <i><MdNoteAdd /></i> 
+            Create New Document
+          </button> */}
       </div>
 
       <div key={1} className="allDocs px-[100px] mt-4">
         {
-          data? data.map((el, index)=>{
+          datas? datas.map((el, index)=>{
             return (
               <>
                 <Docs docs={el} docId={`doc-${index + 1}`} />
@@ -89,7 +117,7 @@ useEffect(()=>{
         }
 
         {
-          data.length < 1 && <p>Sem Documento...</p>
+          datas.length < 1 && <p>Sem Documento...</p>
         }
 
       </div>

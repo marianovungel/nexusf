@@ -1,9 +1,4 @@
-body{
-    overflow: hidden;
-}
-html{
-    overflow: hidden;
-}
+
 .inputBox{
     background-color: #EAEAEA;
     display: flex;
