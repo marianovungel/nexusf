@@ -5,9 +5,43 @@ import { FaRegCircleXmark } from "react-icons/fa6";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { toast } from 'react-toastify';
 import { api_base_url } from '../../Helper';
+import { useUserStore } from '../../lib/userStore';
+import Swal from 'sweetalert2';
 
 export default function Solicitation({ data }) {
-    const [datas, setDatas] = useState([])
+    const { currentUser, superUser } = useUserStore()
+
+    const RecuseNotification = async ()=>{
+      await fetch(api_base_url + "/colaborar", {
+        mode:"cors",
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json",
+        },
+        body: JSON.stringify({
+          userNotificated: data.usernotify,  
+          usernotifyName: superUser.name, 
+          type: 1, 
+          link: "", 
+          ArtigoName: data.ArtigoName,
+          usernotify: currentUser.id, 
+          text: `Desta vez não foste aceite para ser colaborador do artigo ${data.ArtigoName}`, 
+        }),
+      })
+      .then((res)=> res.json())
+        .then((data)=>{
+            if(data){
+              Swal.fire({
+                  position: "top-center",
+                  icon: "success",
+                  title: "Colaboração Solicitado!",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              // console.log(data)
+            }
+        })
+      }
     
     const RegectSolicitation = async ()=>{
         await fetch(api_base_url + "/reject", {
@@ -22,10 +56,34 @@ export default function Solicitation({ data }) {
         })
         .then((res)=> res.json())
           .then((data)=>{
-              setDatas(data.notification)
-              console.log(data.notification)
-              toast.success("Solicitação Rejeitada com sucesso!")
+              if(data.notification){
+                toast.success("Solicitação Rejeitada com sucesso!")
+              }
           })
+
+          await RecuseNotification()
+        }
+
+    const AceptSolicitation = async ()=>{
+        await fetch(api_base_url + "/aceptcolab", {
+          mode:"cors",
+          method: "POST",
+          headers:{
+            "Content-Type":"application/json",
+          },
+          body: JSON.stringify({
+            colaborador:data?.usernotify,
+            docId: data?.link,
+          }),
+        })
+        .then((res)=> res.json())
+          .then((data)=>{
+              if(data.notification){
+                toast.success("Solicitação Rejeitada com sucesso!")
+              }
+          })
+
+          await RecuseNotification()
         }
   return (
     <div id='rejectedContainer' className='w-full flex flex-row items-center justify-between bg-blend-lighten gap-3 py-3 hover:bg-cyan-50'>
@@ -39,8 +97,8 @@ export default function Solicitation({ data }) {
         <div className='px-3 h-full flex flex-col items-end justify-center gap-3'>
             <BsThreeDots size={24} color='gray' />
             <div className='flex flex-row items-center justify-end gap-3'>
-                <FaRegCircleXmark size={35} onClick={RegectSolicitation} />
-                <FaRegCircleCheck size={35} className='text-sky-700' />
+                <FaRegCircleXmark size={35} onClick={RegectSolicitation} className='cursor-pointer' />
+                <FaRegCircleCheck size={35} onClick={AceptSolicitation} className='text-sky-700 cursor-pointer' />
             </div>
         </div>
     </div>
