@@ -91,10 +91,10 @@ useEffect(()=>{
   return (
     <>
       <div className="flex items-center justify-between px-[100px]">
-        <h3 className="mt-7 mb-3 text-3xl">All Documents</h3>
+        <h3 className="mt-7 mb-3 text-3xl">Todos Artigos</h3>
           <button className="btnBlue" onClick={()=>navigate("/novo-artigo")}>
             <i><MdNoteAdd /></i> 
-            Create New Document
+            Criar Novo Artigo
           </button>
           {/* <button className="btnBlue" onClick={()=>{
             setCreateModelShow(true);
@@ -126,10 +126,10 @@ useEffect(()=>{
       ? <>
         <div className="createDocsModelCon fixed top-0 left-0 right-0 bottom-0 bg-[rgb(0,0,0,.3)] w-screen h-screen flex flex-col items-center justify-center">
         <div className="createDocsModel bg-[#fff] rounded-lg w-[35vw] h[25vh] p-[15px]">
-          <h3 className='text-[20px]'>Create new Document</h3>
+          <h3 className='text-[20px]'>Criar Novo Artigo</h3>
 
           <div className='inputCon mt-3'>
-            <p className="text-[14px] text-[#808080]">Title</p>
+            <p className="text-[14px] text-[#808080]">Título</p>
             <div className="inputBox w-[100%]">
               <i><MdOutlineTitle /></i>
               <input onChange={(e)=>{setTitle(e.target.value)}} value={title} type="text" placeholder='Title' id='title' name='title' required />
@@ -137,7 +137,7 @@ useEffect(()=>{
           </div>
 
           <div className="flex items-center gap-2 justify-between w-full my-3">
-            <div onClick={createDoc} className="btnBlue !min-w-[49%]">Create New Document</div>
+            <div onClick={createDoc} className="btnBlue !min-w-[49%]">Criar Novo Artigo</div>
             <div onClick={()=>{setCreateModelShow(false)}} className="p-[10px] bg-[#D1D5DB] text-black rounded-lg border-0 cursor-pointer min-w-[49%] flex justify-center items-center">Cancel</div>
           </div>
         </div>

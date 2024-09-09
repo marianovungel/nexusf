@@ -2,13 +2,14 @@ import { useParams } from 'react-router-dom'
 import React, {useState, useRef, useEffect} from 'react';
 import JoditEditor from "jodit-pro-react";
 import { api_base_url } from '../../Helper';
+import { useUserStore } from '../../lib/userStore';
 
 export default function CreateDocs() {
     let {docsId} = useParams()
     const editor = useRef(null)
     const [content, setContent] = useState('')
     const [error, setError] = useState("")
-    let userIdFatch = localStorage.getItem("userId");
+    const { currentUser } = useUserStore()
     // console.log(error)
 
 
@@ -20,7 +21,7 @@ export default function CreateDocs() {
             "Content-Type":"application/json",
           },
           body: JSON.stringify({
-            userId: localStorage.getItem("userId"),
+            userId: currentUser?.id,
             docId:docsId,
             content:content
           }),
@@ -43,7 +44,7 @@ export default function CreateDocs() {
             "Content-Type":"application/json",
           },
           body: JSON.stringify({
-            userId: userIdFatch,
+            userId: currentUser?.id,
             docId:docsId,
             content:content
           }),
@@ -60,7 +61,7 @@ export default function CreateDocs() {
 
     useEffect(()=>{
       getContent();
-    }, [])
+    }, [currentUser?.id])
 
     
   return (
