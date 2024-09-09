@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import React, {useState, useRef, useEffect} from 'react';
 import JoditEditor from "jodit-pro-react";
 import { api_base_url } from '../../Helper';
@@ -6,11 +6,12 @@ import { useUserStore } from '../../lib/userStore';
 
 export default function CreateDocs() {
     let {docsId} = useParams()
+    const navigate = useNavigate();
     const editor = useRef(null)
     const [content, setContent] = useState('')
     const [error, setError] = useState("")
+    const [showEditor, setShowEditor] = useState(false)
     const { currentUser } = useUserStore()
-    // console.log(error)
 
 
     const updateDoc = async ()=>{
@@ -54,7 +55,18 @@ export default function CreateDocs() {
               if(data.success === false){
                 setError(data.message)
               }else{
-                  setContent(data.doc.content)
+                console.log(data)
+                var colab = data?.doc?.colab;
+                var verifyColab = colab.includes(currentUser?.id);
+                
+                if(verifyColab || data.doc.autorId === currentUser?.id){
+                  setShowEditor(true)
+                }else{
+                  setTimeout(()=>{
+                    navigate("/documentos")
+                  }, 3000)
+                }
+                setContent(data.doc.content)
               }
           })
     }
@@ -66,6 +78,7 @@ export default function CreateDocs() {
     
   return (
     <>
+    {showEditor ? (
       <div className='px-[100px] mt-3 mx-auto w-3/5  lg:w-1/2 md:w-3/4 sm:w-full sm:px-0'>
         <JoditEditor
           ref={editor}
@@ -78,6 +91,9 @@ export default function CreateDocs() {
           onChange={(e)=>{setContent(e); updateDoc()}}
         />
       </div>
+    ): <div className='w-full h-full flex justify-center items-start text-2xl pt-3'>Usuário Não Autorizado...</div>
+    }
+
     </>
   )
 }
