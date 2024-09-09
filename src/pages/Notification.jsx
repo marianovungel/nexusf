@@ -8,7 +8,7 @@ import { useUserStore } from '../lib/userStore';
 export default function Notification() {
   const [show, setShow] = useState(false)
   const [datas, setDatas] = useState([])
-  const { currentUser, superUser } = useUserStore()
+  const { currentUser } = useUserStore()
 
   const setGerenciar = ()=>{
     if(!show){
@@ -32,7 +32,6 @@ export default function Notification() {
     .then((res)=> res.json())
       .then((data)=>{
           setDatas(data.notification)
-          console.log(data.notification)
       })
     }
 
@@ -70,7 +69,7 @@ export default function Notification() {
           <button className='text-[#23272F] hover:bg-cyan-50 font-medium text-sm bg-[#fff] py-2 px-3 rounded-3xl border-[#666] border-1'>Solicitação enviadas</button>
         </header>
         {datas ? datas.map((data)=>(
-          <div key={data?._id} className='w-full flex flex-col items-center justify-start border-2 rounded-t-xl border-[#f5f5f5]'>
+          <div key={data?._id} className='w-full flex flex-col items-center justify-start border-2 rounded-xl border-[#f5f5f5]'>
             {data?.type === 1 && <Rejected data={data} />}
             {data?.type === 2 && <Acepts data={data} />}
             {data?.type === 3 && <Solicitation data={data} />}
