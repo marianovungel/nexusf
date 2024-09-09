@@ -8,6 +8,7 @@ import { useUserStore } from './lib/userStore';
 import { useEffect } from 'react';
 import NoPage from './pages/NoPage';
 import VideoProvider from './pages/Video/VideoProvider';
+import NewApp from './pages/NewApp';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/profile" element={  currentUser ? <Profile /> : <Login />  } exact />
           <Route path="/novo-artigo" element={ currentUser ? <NovoArtigo /> : <Login /> } exact />
           <Route path="/documentos" element={  currentUser ? <Editor />  : <Login />  } exact />
+          <Route path="/ed" element={  <NewApp />  } exact />
           <Route path="/createDocs/:docsId" element={ currentUser ? <CreateDocs />  : <Login /> } />
           <Route path="/chat" element={ currentUser ? <MyChat />  : <Login /> } exact />
           <Route path="/video" element={ currentUser ? <VideoProvider />  : <Login /> } exact />

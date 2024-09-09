@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import React, {useState, useRef, useEffect} from 'react';
-import JoditEditor from "jodit-pro-react";
+// import JoditEditor from "jodit-pro-react";
+import JoditEditor from 'jodit-react'
 import { api_base_url } from '../../Helper';
 import { useUserStore } from '../../lib/userStore';
 
@@ -15,7 +16,7 @@ export default function CreateDocs() {
 
 
     const updateDoc = async ()=>{
-        fetch(api_base_url + "/uploadDoc", {
+        await fetch(api_base_url + "/uploadDoc", {
           mode:"cors",
           method: "POST",
           headers:{
@@ -55,7 +56,6 @@ export default function CreateDocs() {
               if(data.success === false){
                 setError(data.message)
               }else{
-                console.log(data)
                 var colab = data?.doc?.colab;
                 var verifyColab = colab.includes(currentUser?.id);
                 
@@ -66,7 +66,20 @@ export default function CreateDocs() {
                     navigate("/documentos")
                   }, 3000)
                 }
-                setContent(data.doc.content)
+                const PAGE_LIMIT = 3200; // Defina um limite de caracteres para a quebra de página
+
+                let updatedContent = data.doc.content;
+                const textLength = updatedContent.length;
+                console.log(textLength)
+
+                console.log(PAGE_LIMIT < textLength)
+
+                if (textLength > PAGE_LIMIT) {
+                  // Adiciona uma quebra de página após o limite
+                  updatedContent = updatedContent.replace(new RegExp(`(.{${PAGE_LIMIT}})`, 'g'), '$1<!--pagebreak-->');
+                }
+                // setContent(data.doc.content)
+                setContent(updatedContent)
               }
           })
     }
@@ -75,6 +88,10 @@ export default function CreateDocs() {
       getContent();
     }, [currentUser?.id])
 
+    const config = {
+      readonly: false, // Defina como true para tornar o editor somente leitura
+      // Adicione configurações adicionais conforme necessário
+    };
     
   return (
     <>
@@ -83,6 +100,7 @@ export default function CreateDocs() {
         <JoditEditor
           ref={editor}
           value={content}
+          config={config}
           tabIndex={1} // tabIndex of textarea 
           // onChange={(e)=>{
           //   setContent(e.target.value)

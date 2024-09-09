@@ -64,7 +64,11 @@ code {
   background-color: rgba(17, 25, 40, 0.9);
   color: #999;
 }
-
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
+}
 
 
 
