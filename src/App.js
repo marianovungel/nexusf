@@ -7,7 +7,8 @@ import { auth } from './lib/firebase';
 import { useUserStore } from './lib/userStore';
 import { useEffect } from 'react';
 import NoPage from './pages/NoPage';
-import VideoProvider from './pages/Video/VideoProvider';
+// import VideoProvider from './pages/Video/VideoProvider';
+import Video from './pages/Video/AppVideo';
 import NewApp from './pages/NewApp';
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
           <Route path="/ed" element={  <NewApp />  } exact />
           <Route path="/createDocs/:docsId" element={ currentUser ? <CreateDocs />  : <Login /> } />
           <Route path="/chat" element={ currentUser ? <MyChat />  : <Login /> } exact />
-          <Route path="/video" element={ currentUser ? <VideoProvider />  : <Login /> } exact />
+          <Route path="/video" element={ currentUser ? <Video />  : <Login /> } exact />
           <Route path="/login" element={currentUser ? <WellCome />  : <Login />} exact />
           <Route path="*" element={<NoPage />} />
         </Routes>
