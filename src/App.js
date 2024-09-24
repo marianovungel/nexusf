@@ -13,7 +13,6 @@ import NewApp from './pages/NewApp';
 
 function App() {
 
-
   const { 
     // isLoading, 
     currentUser, 
@@ -29,6 +28,8 @@ function App() {
       unSub();
     }
   }, [fetchUserInfo])
+
+  console.log(currentUser)
 
   // if(isLoading) return <div className='loading'>Processando...</div>
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/createDocs/:docsId" element={ currentUser ? <CreateDocs />  : <Login /> } />
           <Route path="/chat" element={ currentUser ? <MyChat />  : <Login /> } exact />
           <Route path="/video" element={ currentUser ? <Video />  : <Login /> } exact />
+          <Route path="/videos" element={ <Video />  } exact />
           <Route path="/login" element={currentUser ? <WellCome />  : <Login />} exact />
           <Route path="*" element={<NoPage />} />
         </Routes>
