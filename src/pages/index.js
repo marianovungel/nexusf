@@ -8,6 +8,7 @@ import Login from './Login/Login'
 import NovoArtigo from './NovoArtigo'
 import Editor from './Editor/Editor'
 import CreateDocs from './Editor/CreateDocs'
+import NovoGrupo from './NovoGrupo'
 
 export {
     Login,
@@ -19,5 +20,6 @@ export {
     MyChat,
     NovoArtigo,
     Editor,
-    CreateDocs
+    CreateDocs,
+    NovoGrupo
 }

@@ -91,8 +91,10 @@ export default function Login() {
     const { email, password} = Object.fromEntries(formData)
 
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      var dataResponse = await signInWithEmailAndPassword(auth, email, password)
       toast.success("Logado com sucesso")
+      console.log("Passei e estou aqui")
+      console.log(dataResponse)
       navigate("/feed")
     } catch (error) {
       toast.error(error.message)
