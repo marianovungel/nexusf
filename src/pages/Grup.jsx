@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaBook } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa6";
 import { SobreProfile, ArtigoList, GrupList } from '../components/index';
 import { FaUsers } from "react-icons/fa";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { api_base_url } from '../Helper';
 
 export default function Grup() {
     const [show, setShow] = useState("sobre")
+    const [datas, setDatas] = useState({})
+    const location = useLocation();
+    const navigate = useNavigate()
+
+    const path = location.pathname.split("/")[2]
+    console.log(path)
 
     const MenuSetting =(menuItems)=>{
         setShow(menuItems)
@@ -14,6 +22,31 @@ export default function Grup() {
             console.log(show)
         }, 3000)
     }
+
+    useEffect(()=>{
+        const getData = async ()=>{
+            await fetch(api_base_url + "/getGrup", {
+              mode:"cors",
+              method: "POST",
+              headers:{
+                "Content-Type":"application/json",
+              },
+              body: JSON.stringify({
+                grupId: path,
+              }),
+            })
+            .then((res)=> res.json())
+              .then((data)=>{
+                  setDatas(data.grupo)
+                  console.log(data.grupo)
+              })
+            }
+            getData()
+    }, [path])
+
+    
+
+
   return (
     <div className='w-full py-0'>
         <div id='fullscreenProfile' className='w-full py-4 shadow-md'>
@@ -21,15 +54,15 @@ export default function Grup() {
                 <div className='flex flex-row items-center justify-start gap-3 px-3'>
                     <div className='flex flex-col items-start justify-center gap-1'>
                         <small>GRUPO</small>
-                        <b className='font-medium text-3xl'>Grupo Nome Nexus</b>
-                        <p>FullStack.JS Desenvolvedor Web & Mobile</p>
-                        <small>Desde: <i>01/2024</i></small>
+                        <b className='font-medium text-3xl'>{datas?.name}</b>
+                        <p>{datas?.desc}</p>
+                        <small>Desde: <i>{new  Date(datas.date).toDateString()}</i></small>
                     </div>
                 </div>
                 <div className='px-3 h-full flex flex-col items-end justify-center gap-3'>
                     <FaUserPlus size={24} color='gray' className='cursor-pointer hover:text-[#000]' />
                     <div className='flex flex-row items-center justify-end gap-3'>
-                        <button className='px-3 py-2 bg-[#23272F] text-white text-bold flex flex-row justify-center items-center rounded-lg gap-2 border-0'><FaBook size={24} /> Novo Artigo</button>
+                        <button onClick={()=> navigate(`/novo-artigo-grupo/${path}`)} className='px-3 py-2 bg-[#23272F] text-white text-bold flex flex-row justify-center items-center rounded-lg gap-2 border-0'><FaBook size={24} /> Novo Artigo</button>
                         <button className='px-3 py-2 text-[#23272F] text-bold flex flex-row justify-center items-center rounded-lg border-1 gap-2 border-[#23272F]'><FaUsers size={24} /> Editar</button>
                     </div>
                 </div>
@@ -47,13 +80,10 @@ export default function Grup() {
             </div>
 
             <div id='borderLerftProfile' className='w-5/6 h-full '>
-                <GrupList />
-                <GrupList />
-                <ArtigoList />
-                <ArtigoList />
-                <ArtigoList />
-                <ArtigoList />
-                <SobreProfile />
+                { show ==="artigo" && (<ArtigoList />)}
+                { show ==="colaborar" && (<ArtigoList />)}
+                { show ==="grupo" && (<GrupList />)}
+                { show ==="sobre" && (<SobreProfile data={datas} />)}
             </div>
         </section>
     </div>

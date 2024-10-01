@@ -13,6 +13,7 @@ import ListItem from './MyChatComponets/ListItem/ListItem'
 import Detail from './MyChatComponets/Detail/Detail'
 import Notify from './Notify'
 import Docs from './MyEditorComponents/Docs'
+import SobreProfileUser from './SobreProfileUser'
 
 export {
     Menu,
@@ -29,5 +30,6 @@ export {
     ListItem,
     Detail,
     Notify,
-    Docs
+    Docs,
+    SobreProfileUser
 }

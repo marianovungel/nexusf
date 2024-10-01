@@ -9,6 +9,7 @@ import NovoArtigo from './NovoArtigo'
 import Editor from './Editor/Editor'
 import CreateDocs from './Editor/CreateDocs'
 import NovoGrupo from './NovoGrupo'
+import NovoArtGrup from './NovoArtGrup'
 
 export {
     Login,
@@ -21,5 +22,6 @@ export {
     NovoArtigo,
     Editor,
     CreateDocs,
-    NovoGrupo
+    NovoGrupo,
+    NovoArtGrup
 }

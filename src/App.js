@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Login, WellCome, Notification, Profile, Feed, Grup, MyChat, NovoArtigo, Editor, CreateDocs, NovoGrupo } from './pages/index';
+import { Login, WellCome, Notification, Profile, Feed, Grup, MyChat, NovoArtigo, Editor, CreateDocs, NovoGrupo, NovoArtGrup } from './pages/index';
 import { Menu, Notify } from './components/index';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './lib/firebase';
@@ -29,7 +29,7 @@ function App() {
     }
   }, [fetchUserInfo])
 
-  console.log(currentUser)
+  // console.log(currentUser)
 
   // if(isLoading) return <div className='loading'>Processando...</div>
 
@@ -44,6 +44,7 @@ function App() {
           <Route path="/notification" element={  currentUser ? <Notification /> : <Login />   } exact />
           <Route path="/profile" element={  currentUser ? <Profile /> : <Login />  } exact />
           <Route path="/novo-artigo" element={ currentUser ? <NovoArtigo /> : <Login /> } exact />
+          <Route path="/novo-artigo-grupo/:grupId" element={ currentUser ? <NovoArtGrup /> : <Login /> } exact />
           <Route path="/novo-grupo" element={ currentUser ? <NovoGrupo /> : <Login /> } exact />
           <Route path="/documentos" element={  currentUser ? <Editor />  : <Login />  } exact />
           <Route path="/ed" element={  <NewApp />  } exact />

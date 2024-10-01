@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FaBook } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
-import { SobreProfile, ArtigoList, GrupList } from '../components/index';
+import { SobreProfileUser, ArtigoList, GrupList } from '../components/index';
 import { FaUsers } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from "../lib/userStore";
@@ -63,7 +63,7 @@ export default function Profile() {
                 { show ==="artigo" && (<ArtigoList />)}
                 { show ==="colaborar" && (<ArtigoList />)}
                 { show ==="grupo" && (<GrupList />)}
-                { show ==="sobre" && (<SobreProfile />)}
+                { show ==="sobre" && (<SobreProfileUser />)}
             </div>
         </section>
     </div>
