@@ -38,7 +38,6 @@ export default function Grup() {
             .then((res)=> res.json())
               .then((data)=>{
                   setDatas(data.grupo)
-                  console.log(data.grupo)
               })
             }
             getData()

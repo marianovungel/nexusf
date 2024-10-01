@@ -31,7 +31,6 @@ export default function NovoArtGrup() {
         .then((res)=> res.json())
           .then((data)=>{
               setDatas(data.grupo)
-              console.log(data.grupo)
           })
         }
         getData()
