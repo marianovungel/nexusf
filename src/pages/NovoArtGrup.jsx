@@ -10,10 +10,6 @@ export default function NovoArtGrup() {
   const [datas, setDatas] = useState({})
   const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
-  const [colabItem, setColabItem] = useState("")
-  const [colabs, setColabs] = useState([])
-  const [colab, setColab] = useState([])
-  const [publicc, setPublicc] = useState(true)
   const location = useLocation();
 
     const path = location.pathname.split("/")[2]
