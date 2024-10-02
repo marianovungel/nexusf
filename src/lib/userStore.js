@@ -8,6 +8,7 @@ const useUserStore = create((set) => ({
     currentUser: null,
     isLoading:true,
     superUser:null,
+    supernotification:0,
     fetchUserInfo: async (uid)=>{
         if(!uid) return set({ currentUser: null, superUser:null, isLoading: false});
 
@@ -29,7 +30,7 @@ const useUserStore = create((set) => ({
                   })
                   .then((res)=> res.json())
                   .then((data)=>{
-                    set({ currentUser: docSnap.data(), superUser: data.user, isLoading: false })
+                    set({ currentUser: docSnap.data(), superUser: data.user, isLoading: false, supernotification:data.notifyNum })
                   })
                 // set({ currentUser: docSnap.data(), superUser: docSnap.data(), isLoading: false })
             }else{

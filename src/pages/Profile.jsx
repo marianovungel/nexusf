@@ -3,7 +3,7 @@ import { FaBook } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
 import { SobreProfileUser, ArtigoList, GrupList } from '../components/index';
 import { FaUsers } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useUserStore } from "../lib/userStore";
 import { api_base_url } from '../Helper';
 const AvatarULR = "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
@@ -13,11 +13,25 @@ export default function Profile() {
     const [show, setShow] = useState("sobre")
     const [datas, setDatas] = useState([])
     const { currentUser, superUser } = useUserStore()
+    const location = useLocation();
+
+    const path = location.hash.split("#")[1]
+
+    useEffect(()=>{
+        const CheckPath = ()=>{
+            if(path === ""){
+                setShow("sobre")
+            }else{
+                setShow(path)
+            }
+        }
+        CheckPath()
+    }, [path])
+    console.log(path)
 
     const navigate = useNavigate();
 
     const goToDocuments = () => {
-        console.log("ffj")
         navigate('/documentos');
     };
 
@@ -83,7 +97,7 @@ export default function Profile() {
 
             <div id='borderLerftProfile' className='w-5/6 h-full '>
                 { show ==="artigo" && (<ArtigoList data={datas} />)}
-                { show ==="colaborar" && (<ArtigoList />)}
+                { show ==="colaborar" && (<ArtigoList data={datas} />)}
                 { show ==="grupo" && (<GrupList />)}
                 { show ==="sobre" && (<SobreProfileUser data={superUser}/>)}
             </div>

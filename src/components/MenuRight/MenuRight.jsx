@@ -15,10 +15,10 @@ export default function MenuRight() {
       <img className='w-8 h-8 rounded-full object-cover' src={currentUser?.avatar ? currentUser?.avatar : AvatarULR } alt="" />
       </button>
     <div className="dropdown-content">
-        <Link to="/profile">Meu Perfil</Link>
-        <Link to="/profile">Novo Artigo</Link>
-        <Link to="/profile">Meus Artigos</Link>
-        <Link to="/grupo">Meus Grupos</Link>
+        <Link to="/profile#sobre">Meu Perfil</Link>
+        <Link to="/profile#colaborar">Novo Artigo</Link>
+        <Link to="/profile#artigo">Meus Artigos</Link>
+        <Link to="/profile#grupo">Meus Grupos</Link>
     </div>
     </div>
   )

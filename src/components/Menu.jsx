@@ -1,37 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { IoMdSearch } from "react-icons/io";
 import { IoNotifications } from "react-icons/io5";
 import { MenuLeft, MenuRight } from './index';
 import { Link } from 'react-router-dom';
-import { api_base_url } from '../Helper';
 import { useUserStore } from '../lib/userStore';
 
 export default function Menu() {
-  const [tam, settam] = useState(0)
-  const { currentUser } = useUserStore()
-
-  const getData = async ()=>{
-    await fetch(api_base_url + "/noticicadas", {
-      mode:"cors",
-      method: "POST",
-      headers:{
-        "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-        userId: currentUser?.id,
-      }),
-    })
-    .then((res)=> res.json())
-      .then((data)=>{
-          let getLength = data.notification
-          let lengthNotify = getLength.length
-          settam(lengthNotify)
-      })
-    }
-
-    useEffect(()=>{
-      getData()
-    }, [])
+  const { supernotification } = useUserStore()
 
   return (
     <header className=" sticky top-0 z-50 flex items-center px-4 py-2 shadow-md bg-white h-20">
@@ -44,7 +19,7 @@ export default function Menu() {
       </div>
       <Link to='/notification'  className="mr-2 border-0 relative flex items-center cursor-pointer h-10 w-8">
         <IoNotifications size={30} color="gray"/>
-        {tam > 0 && (<i style={{fontSize: 9, padding:1}} className='bg-red-600 text-white rounded-full absolute top-0 right-0 min-w-4 flex justify-center items-center'>{tam}</i>)}
+        {supernotification > 0 && (<i style={{fontSize: 9, padding:1}} className='bg-red-600 text-white rounded-full absolute top-0 right-0 min-w-4 flex justify-center items-center'>{supernotification}</i>)}
       </Link>
       <MenuRight />
   </header>

@@ -14,7 +14,8 @@ import NewApp from './pages/NewApp';
 function App() {
 
   const { 
-    // isLoading, 
+    // isLoading,
+    supernotification, 
     currentUser, 
     fetchUserInfo 
   } = useUserStore()
@@ -29,7 +30,7 @@ function App() {
     }
   }, [fetchUserInfo])
 
-  // console.log(currentUser)
+  console.log(supernotification)
 
   // if(isLoading) return <div className='loading'>Processando...</div>
 
