@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './MenuLeft.css'
 import { Link } from 'react-router-dom';
-import { RiMenuFold3Line2, RiMenuFold4Line  } from "react-icons/ri";
+import { RiMenuFold3Line2, RiMenuFill  } from "react-icons/ri";
 
 export default function MenuLeft() {
     const [openVariable, setopenVariable] = useState(false)
@@ -44,7 +44,7 @@ export default function MenuLeft() {
                 </button>
             ):(
                 <button className="openbtn flex items-center justify-center mr-3" onClick={openNav} id='nexusId' >
-                    <RiMenuFold4Line size={30} color='gray' />
+                    <RiMenuFill  size={30} color='gray' />
                 </button>
             )}
             
