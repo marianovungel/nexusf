@@ -37,6 +37,7 @@ export default function Menu() {
     <header className=" sticky top-0 z-50 flex items-center px-4 py-2 shadow-md bg-white h-20">
       <MenuLeft />
       <h1 className="ml-2 text-gray-700 text-xl md:hidden sm:hidden">NEXUS</h1>
+      <img src="./image/logocortada.png " alt="" className=' cursor-pointer w-24 object-cover' />
       <div id='searchId' className="mx-5 md:mx-20 flex flex-grow items-center px-2 py-2 bg-gray-100 text-gray-600 rounded-lg focus-within:text-gray-600 focus-within:shadow-md">
         <IoMdSearch size={30} color="gray" />
         <input type="text" placeholder="Search" className="flex-grow px-2 text-base bg-transparent outline-none" />

@@ -9,19 +9,17 @@ import { api_base_url } from '../Helper';
 export default function Grup() {
     const [show, setShow] = useState("sobre")
     const [datas, setDatas] = useState({})
+    const [artList, setArtList] = useState([])
     const location = useLocation();
     const navigate = useNavigate()
 
     const path = location.pathname.split("/")[2]
-    console.log(path)
 
     const MenuSetting =(menuItems)=>{
         setShow(menuItems)
-
-        setTimeout(()=>{
-            console.log(show)
-        }, 3000)
     }
+
+
 
     useEffect(()=>{
         const getData = async ()=>{
@@ -40,7 +38,26 @@ export default function Grup() {
                   setDatas(data.grupo)
               })
             }
+
+            const getArtigoList = async ()=>{
+                await fetch(api_base_url + "/getAllDocs", {
+                  mode:"cors",
+                  method: "POST",
+                  headers:{
+                    "Content-Type":"application/json",
+                  },
+                  body: JSON.stringify({
+                    userId: path,
+                  }),
+                })
+                .then((res)=> res.json())
+                  .then((data)=>{
+                    setArtList(data.docs)
+                  })
+                }
+
             getData()
+            getArtigoList()
     }, [path])
 
     
@@ -79,7 +96,7 @@ export default function Grup() {
             </div>
 
             <div id='borderLerftProfile' className='w-5/6 h-full '>
-                { show ==="artigo" && (<ArtigoList />)}
+                { show ==="artigo" && (<ArtigoList data={artList} />)}
                 { show ==="colaborar" && (<ArtigoList />)}
                 { show ==="grupo" && (<GrupList />)}
                 { show ==="sobre" && (<SobreProfile data={datas} />)}

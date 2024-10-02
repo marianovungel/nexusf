@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaBook } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
 import { SobreProfileUser, ArtigoList, GrupList } from '../components/index';
 import { FaUsers } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from "../lib/userStore";
+import { api_base_url } from '../Helper';
 const AvatarULR = "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
 
 
 export default function Profile() {
     const [show, setShow] = useState("sobre")
-    const { currentUser } = useUserStore()
-    console.log(currentUser)
+    const [datas, setDatas] = useState([])
+    const { currentUser, superUser } = useUserStore()
 
     const navigate = useNavigate();
 
@@ -27,6 +28,27 @@ export default function Profile() {
             console.log(show)
         }, 3000)
     }
+
+    useEffect(()=>{
+        const getData = async ()=>{
+            await fetch(api_base_url + "/getAllDocs", {
+              mode:"cors",
+              method: "POST",
+              headers:{
+                "Content-Type":"application/json",
+              },
+              body: JSON.stringify({
+                userId: currentUser.id,
+              }),
+            })
+            .then((res)=> res.json())
+              .then((data)=>{
+                  setDatas(data.docs)
+              })
+            }
+
+            getData()
+    }, [currentUser.id])
 
   return (
     <div className='w-full py-0'>
@@ -60,10 +82,10 @@ export default function Profile() {
             </div>
 
             <div id='borderLerftProfile' className='w-5/6 h-full '>
-                { show ==="artigo" && (<ArtigoList />)}
+                { show ==="artigo" && (<ArtigoList data={datas} />)}
                 { show ==="colaborar" && (<ArtigoList />)}
                 { show ==="grupo" && (<GrupList />)}
-                { show ==="sobre" && (<SobreProfileUser />)}
+                { show ==="sobre" && (<SobreProfileUser data={superUser}/>)}
             </div>
         </section>
     </div>

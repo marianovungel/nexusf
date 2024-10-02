@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './MenuLeft.css'
 import { Link } from 'react-router-dom';
+import { RiMenuFold3Line2, RiMenuFold4Line  } from "react-icons/ri";
 
 export default function MenuLeft() {
+    const [openVariable, setopenVariable] = useState(false)
     function openNav() {
+        setopenVariable(true)
         document.getElementById("mySidebar").style.width = "150px";
         document.getElementById("main").style.marginLeft = "150px";
         
@@ -15,6 +18,7 @@ export default function MenuLeft() {
       }
       
       function closeNav() {
+        setopenVariable(false)
         document.getElementById("mySidebar").style.width = "0";
         document.getElementById("main").style.marginLeft= "0";
 
@@ -28,16 +32,22 @@ export default function MenuLeft() {
   return (
     <div className='flex items-center'>
         <div id="mySidebar" className="sidebar">
-            <i className="closebtn" onClick={closeNav}>x</i>
             <Link to="/">Home</Link>
             <Link to="/feed">Feed</Link>
             <Link to="/chat">Chat</Link>
         </div>
 
         <div id="main">
-            <button className="openbtn flex items-center justify-center" onClick={openNav} id='nexusId' >
-                <img src="./image/logocortada.png " alt="" className=' cursor-pointer w-24 object-cover' />
-            </button>
+            {openVariable ? (
+                <button className="openbtn flex items-center justify-center mr-3" onClick={closeNav} id='nexusId' >
+                    <RiMenuFold3Line2 color='gray' size={30} />
+                </button>
+            ):(
+                <button className="openbtn flex items-center justify-center mr-3" onClick={openNav} id='nexusId' >
+                    <RiMenuFold4Line size={30} color='gray' />
+                </button>
+            )}
+            
         </div>
     </div>
   )
